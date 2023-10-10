@@ -1,0 +1,44 @@
+.todo {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--color-dark-grey);
+    box-shadow: 0 10px 20px #b3bbc673;
+    transition: background-color 0.2s linear;
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
+    &--completed {
+        background-color: grey;
+        text-decoration: line-through;
+    }
+    &__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__title {
+        font-size: 25px;
+        margin-bottom: 10px;
+        max-width: 80%;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    &__description {
+        max-width: 100%;
+        font-size: 18px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    &__buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    &__edit {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+}
