@@ -3,7 +3,6 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { ITodo } from '../../models/todo';
 import ModalTodo from '../ModalTodo/ModalTodo';
 import TodoItem from '../TodoItem/TodoItem';
-import './List.scss';
 
 const List = () => {
     const todos = useAppSelector(state => state.todos.todos);

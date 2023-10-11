@@ -1,19 +1,19 @@
 import Header from './components/Header/Header';
 import List from './components/List/List';
 import Footer from './components/Footer/Footer';
-import './App.scss'
+import Container from 'react-bootstrap/Container';
 
 function App() {
 
   return (
     <>
     <Header />
-    <div className="wrapper">
-      <main>
+    <Container fluid="sm">
+      <main className='py-4'>
         <List />
       </main>
       <Footer />
-    </div>
+    </Container>
     </>
   )
 }

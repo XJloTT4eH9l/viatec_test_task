@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { ITodo } from '../../models/todo';
 import { useAppDispatch } from '../../hooks/reduxHooks';
-import Form from 'react-bootstrap/Form';
-import CloseButton from 'react-bootstrap/CloseButton';
+import { CloseButton, Form, Image } from 'react-bootstrap';
 import { changeStatusTodo, removeTodo } from '../../store/slices/todoSlice';
 import editIcon from '../../assets/edit.png';
 import './TodoItem.scss';
@@ -27,11 +26,11 @@ const TodoItem:FC<TodoItemProps> = ({ todo, onOpenModal }) => {
         <li className={todo.status ? 'todo todo--completed' : 'todo'}>
             <div className="todo__head">
                 <h2 className='todo__title'>{todo.title}</h2>
-                <div className='todo__buttons'>
-                    <img
+                <div className='d-flex align-items-center'>
+                    <Image
                         src={editIcon}
+                        alt='Edit'
                         className='todo__edit'
-                        alt='edit'
                         onClick={() => onOpenModal(todo.id)}
                     />
                     <CloseButton onClick={() => onRemove(todo.id)} />
@@ -41,7 +40,7 @@ const TodoItem:FC<TodoItemProps> = ({ todo, onOpenModal }) => {
             <Form.Check
                 className='todo__checkbox'
                 type='checkbox'
-                label={todo.status ? 'completed' : 'In process'}
+                label={todo.status ? 'Completed' : 'In process'}
                 onChange={() => onChangeStatus(todo.id)}
                 checked={todo.status}
             />

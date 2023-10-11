@@ -2,10 +2,7 @@ import { useState, FC } from 'react';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { addTodo, editTodo } from '../../store/slices/todoSlice';
 import { ITodo } from '../../models/todo';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-
+import { Alert, Button, Modal, Form } from 'react-bootstrap';
 interface ModalTodoProps {
     type: string;
     currentTodo?: ITodo;
@@ -18,6 +15,7 @@ const ModalTodo: FC<ModalTodoProps> = ({ type, currentTodo, showModal, setShowMo
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
 
     const onCloseModal = () => {
         setTitle('');
@@ -26,33 +24,38 @@ const ModalTodo: FC<ModalTodoProps> = ({ type, currentTodo, showModal, setShowMo
     }
 
     const onSubmit = () => {
-        if (type === 'addTodo') {
-            const currentDate = new Date;
-            if (title.length !== 0) {
-                dispatch(addTodo({
-                    id: currentDate.toISOString(),
-                    title,
-                    description,
-                    status
-                }))
-                setShowModal(false);
-                setTitle('');
-                setDescription('');
-                setStatus(false);
+        if(title.length === 0) {
+            setError(true);
+        } else {
+            setError(false);
+            if (type === 'addTodo') {
+                const currentDate = new Date;
+                if (title.length !== 0) {
+                    dispatch(addTodo({
+                        id: currentDate.toISOString(),
+                        title,
+                        description,
+                        status
+                    }))
+                    setShowModal(false);
+                    setTitle('');
+                    setDescription('');
+                    setStatus(false);
+                }
             }
-        }
-        if (type === 'editTodo') {
-            if (title.length !== 0 && currentTodo) {
-                dispatch(editTodo({
-                    id: currentTodo.id,
-                    title,
-                    description,
-                    status
-                }))
-                setTitle('');
-                setDescription('');
-                setStatus(false);
-                setShowModal(false);
+            if (type === 'editTodo') {
+                if (title.length !== 0 && currentTodo) {
+                    dispatch(editTodo({
+                        id: currentTodo.id,
+                        title,
+                        description,
+                        status
+                    }))
+                    setTitle('');
+                    setDescription('');
+                    setStatus(false);
+                    setShowModal(false);
+                }
             }
         }
     }
@@ -79,6 +82,7 @@ const ModalTodo: FC<ModalTodoProps> = ({ type, currentTodo, showModal, setShowMo
                             maxLength={30}
                             onChange={(e) => setTitle(e.target.value)}
                         />
+                        {error && <Alert className='mt-2' variant='danger'>"Title" field cannot be empty</Alert>}
                     </Form.Group>
                     <Form.Group
                         className="mb-3"
@@ -104,6 +108,7 @@ const ModalTodo: FC<ModalTodoProps> = ({ type, currentTodo, showModal, setShowMo
                             type='checkbox'
                             onChange={() => setStatus(prev => !prev)}
                             checked={status}
+                            label={status ? 'Completed' : 'In process'}
                         />
                     </Form.Group>
                 </Form>

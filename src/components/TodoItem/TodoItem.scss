@@ -31,14 +31,10 @@
         word-wrap: break-word;
         white-space: pre-wrap;
     }
-    &__buttons {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
     &__edit {
         width: 24px;
         height: 24px;
         cursor: pointer;
+        margin-right: 10px;
     }
 }
